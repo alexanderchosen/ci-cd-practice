@@ -1,7 +1,9 @@
 import sqlite3
 
+
 def collect_and_save_user():
     print("--- User Data Collection Form ---")
+
 
 ### 1. Collect inputs first
 
@@ -19,7 +21,8 @@ cursor = conn.cursor()
 
 ### 3. CRUCIAL: Force create the table right before inserting data
 
-cursor.execute("""
+cursor.execute(
+    """
 CREATE TABLE IF NOT EXISTS user_profiles (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 first_name TEXT,
@@ -29,14 +32,18 @@ age_group TEXT,
 country_of_residence TEXT,
 current_location TEXT
 )
-""")
+"""
+)
 
 ### 4. Insert the collected data safely
 
-cursor.execute("""
+cursor.execute(
+    """
 INSERT INTO user_profiles (first_name, last_name, gender, age_group, country_of_residence, current_location)
 VALUES (?, ?, ?, ?, ?, ?)
-""", (first_name, last_name, gender, age_group, country, location))
+""",
+    (first_name, last_name, gender, age_group, country, location),
+)
 
 # 5. Commit changes and close
 conn.commit()
