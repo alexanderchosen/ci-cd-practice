@@ -4,7 +4,7 @@ import sqlite3
 def collect_and_save_user():
     print("--- User Data Collection Form ---")
 
-### 1. Collect inputs first
+    ### 1. Collect inputs first
 
     first_name = input("Enter First Name: ")
     last_name = input("Enter Last Name: ")
@@ -13,12 +13,12 @@ def collect_and_save_user():
     country = input("Enter Country of Residence: ")
     location = input("Enter Current Location (City/State): ")
 
-### 2. Connect to the database file
+    ### 2. Connect to the database file
 
     conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
 
-### 3. CRUCIAL: Force create the table right before inserting data
+    ### 3. CRUCIAL: Force create the table right before inserting data
 
     cursor.execute(
         """
@@ -34,24 +34,22 @@ def collect_and_save_user():
         """
     )
 
-### 4. Insert the collected data safely
+    ### 4. Insert the collected data safely
     cursor.execute(
         """
        INSERT INTO user_profiles (first_name, last_name, gender, age_group, country_of_residence, current_location)
         VALUES (?, ?, ?, ?, ?, ?)
         """,
         (first_name, last_name, gender, age_group, country, location),
-        )
+    )
 
-# 5. Commit changes and close
+    # 5. Commit changes and close
     conn.commit()
     conn.close()
 
     print("\nSuccess!!...Data successfully saved to users.db!")
 
+
 # so, i learnt that the __name and __main__ are special built in variables in Python often called dunder or double-underscore variables.
 if __name__ == "__main__":
     collect_and_save_user()
-
-
-
